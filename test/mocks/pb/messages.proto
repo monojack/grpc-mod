@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package test;
+
+message GetRequest {}
+
+message GetOneRequest {
+  string id = 1;
+}
+
+message TodoResponse {
+  string id = 1;
+  string label = 2;
+  int64 created = 3;
+  int64 completed = 4;
+}
+
+message TodoListResponse {
+  repeated TodoResponse data = 1;
+}
+
+message MetadataResponse {
+  string key = 1;
+  string value = 2;
+}
+
+service TestService {
+  rpc Unary (GetOneRequest) returns (TodoResponse) {}
+  rpc UnaryWithError (GetOneRequest) returns (TodoResponse) {}
+  rpc UnaryWithMetadata (GetRequest) returns (MetadataResponse) {}
+  rpc serverStream (GetRequest) returns (stream TodoResponse) {}
+  rpc serverStreamWithError (GetRequest) returns (stream TodoResponse) {}
+  rpc serverStreamWithMetadata (GetRequest) returns (stream MetadataResponse) {}
+  rpc clientStream (stream GetOneRequest) returns (TodoListResponse) {}
+  rpc clientStreamWithError (stream GetOneRequest) returns (TodoListResponse) {}
+  rpc clientStreamWithMetadata (stream GetOneRequest) returns (MetadataResponse) {}
+  rpc bidiStream (stream GetOneRequest) returns (stream TodoResponse) {}
+  rpc bidiStreamWithError (stream GetOneRequest) returns (stream TodoResponse) {}
+  rpc bidiStreamWithMetadata (stream GetOneRequest) returns (stream MetadataResponse) {}
+}
