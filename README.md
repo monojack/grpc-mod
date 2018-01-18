@@ -98,7 +98,7 @@ mod(client)
 
 **options**: optional - the GRPCMod client options
   - `noDefaults`: boolean: Nullifies the default values added to the response object (default is `false`) - [example](#nodefaults)
-  - `noNilProps`: boolean: Removes `null` or `undefined` values from the response object (default is `false`) - [example](nonilprops)
+  - `noNilProps`: boolean: Removes `null` or `undefined` values from the response object (default is `false`) - [example](#nonilprops)
   - `enforceNumber`: boolean:  Turns all `int64` types into numbers (default is `false`) - [example](#enforcenumber)
   - `mods`: function | [function] : one or a list of custom [mods](#creating-custom-mods)
 
