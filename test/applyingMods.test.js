@@ -1,5 +1,4 @@
 const test = require('ava')
-const delay = require('delay')
 
 const { todos, } = require('./mocks/data')
 const { unixToDateString, addDurationProp, } = require('./mocks/mods')
@@ -155,8 +154,6 @@ test('noNilProps will remove any null or undefined props :: bidi stream', async 
 
 test('enforceNumber will turn `int64` values to numbers :: unary', async t => {
   client = require('./mocks/client/configAndModsTestClient')({
-    noDefaults: true,
-    noNilProps: true,
     enforceNumber: true,
   })
 
@@ -168,7 +165,6 @@ test('enforceNumber will turn `int64` values to numbers :: unary', async t => {
 test('enforceNumber will turn `int64` values to numbers :: client stream :: repeated response type', async t => {
   client = require('./mocks/client/configAndModsTestClient')({
     noDefaults: true,
-    noNilProps: true,
     enforceNumber: true,
   })
 
@@ -181,6 +177,7 @@ test('enforceNumber will turn `int64` values to numbers :: client stream :: repe
 
   const { data: docs, } = await stream.getPromise()
   t.truthy(docs.every(({ created, }) => isType('number', created)))
+  t.truthy(docs.every(({ completed, }) => isType('number', completed)))
 })
 
 test('enforceNumber will turn `int64` values to numbers :: server stream', async t => {
@@ -190,16 +187,12 @@ test('enforceNumber will turn `int64` values to numbers :: server stream', async
     enforceNumber: true,
   })
 
+  const docs = await client.serverStream({}).toPromise()
+
   t.plan(4)
-
-  const observable = client.serverStream({})
-  observable.subscribe({
-    next: ({ created, }) => t.truthy(isType('number', created)),
-  })
-
-  // wait for observable to complete before exiting the test
-  await observable.toPromise()
-  await delay(1)
+  for (const { created, } of docs) {
+    t.truthy(isType('number', created))
+  }
 })
 
 test('enforceNumber will turn `int64` values to numbers :: bidi stream', async t => {

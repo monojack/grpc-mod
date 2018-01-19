@@ -42,10 +42,6 @@ export default class ClientMod {
     this.noDefaults = config.noDefaults
     this.mod = this.mod.bind(this)
 
-    const modList = []
-    config.enforceNumber && modList.push(enforceNumber)
-    config.noNilProps && modList.push(noNilProps)
-
     this.mods = (data, context) => {
       const userMods = isType('function', config.mods)
         ? [ config.mods, ]
@@ -54,7 +50,12 @@ export default class ClientMod {
       const userModList = (userMods || []).map(fn =>
         curryN(flip(fn), 2)(context)
       )
-      return compose.call(context, ...[ ...userModList, ...modList, ])(data)
+
+      const modList = []
+      config.enforceNumber && modList.push(enforceNumber(context))
+      config.noNilProps && modList.push(noNilProps(context))
+
+      return compose(...[ ...userModList, ...modList, ])(data)
     }
   }
 

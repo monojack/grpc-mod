@@ -428,7 +428,7 @@ function enforceNumber(response, schema){
   return { todos: moddedList }
 }
 ```
->***NOTE:*** This is not how `enforceNumber` is written. The actual implementation recursively handles nested response objects and it doesn't take a `schema` argument. The value of `this` inside the `enforceNumber` method is the `schema`. You can read through the source if you're interested how it all works.
+>***NOTE:*** This is not how `enforceNumber` is written. The actual implementation recursively handles nested response objects and are partially applied with the `schema` argument. You can read through the source if you're interested how it all works.
 
 ##### *deepApplyMod*
 > deepApplyMod(response [, schema], transformFn [, predicate])
