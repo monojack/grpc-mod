@@ -236,8 +236,7 @@ const client = new GRPCModClient({
   serverAddress: 'localhost:8080',
   credentials: credentials.createInsecure(),
 }, {
-  noDefaults: true,
-  noNilProps: true
+  noDefaults: true
 })
 
 const doc = await client.getTodo({id: '5a54caf61bec98000f59dcbe'})
