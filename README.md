@@ -310,7 +310,7 @@ const doc = await client.getTodo({id: '5a54caf61bec98000f59dcbe'})
 ```
 
 #### Creating custom mods
-The configuration object accepts a 'mods' props where you can specify one or a list of mods that you build.
+The configuration object accepts a 'mods' prop where you can specify one or a list of mods that you build.
 
 ```js
 ...
@@ -413,7 +413,7 @@ function enforceNumber(response, schema){
 
   const moddedList = response.todos.map(todo => {
     // reduce the todo entries and create a new object
-    Object.entries(todo).reduce((acc, [key, value]) => {
+    return Object.entries(todo).reduce((acc, [key, value]) => {
       // if the current property is of type `int64` we parse it into a number
       return {
         ...acc,
@@ -440,8 +440,8 @@ Let's say that we want to transform `created` and `completed` props from unix to
 function unixToDateString(response) {
   return {
     ...response,
-    created: Date(response.created),
-    completed: Date(response.completed)
+    created: new Date(response.created),
+    completed: new Date(response.completed)
   }
 }
 ```
