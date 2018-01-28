@@ -440,8 +440,8 @@ Let's say that we want to transform `created` and `completed` props from unix to
 function unixToDateString(response) {
   return {
     ...response,
-    created: new Date(response.created),
-    completed: new Date(response.completed)
+    created: new Date(response.created).toString(),
+    completed: new Date(response.completed).toString()
   }
 }
 ```
