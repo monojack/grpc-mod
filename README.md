@@ -31,7 +31,7 @@
 
 ## Installation
 ```sh
-npm install grpc-promise
+npm install grpc-mod
 ```
 
 ## API by example
