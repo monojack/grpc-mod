@@ -1,6 +1,6 @@
 # **gRPC-Mod**
 
-[gRPC](https://grpc.io/) client that let's you manipulate the response objects and returns promises or observables for streams.
+[gRPC](https://grpc.io/) client that lets you manipulate the response objects and returns promises or observables for streams.
 
 
 [![Build Status](https://travis-ci.org/monojack/grpc-mod.svg?branch=master)](https://travis-ci.org/monojack/grpc-mod)
